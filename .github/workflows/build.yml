@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK (Docker)
 
 on:
   push:
@@ -11,31 +11,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    container:
+      image: ghcr.io/jfxs/ci-android:latest
+      options: --privileged
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        cmdline-tools-version: 'latest'
-
-    - name: Install Gradle manually
-      run: |
-        wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
-        unzip -d /opt/gradle gradle-8.5-bin.zip
-        echo 'export PATH=/opt/gradle/gradle-8.5/bin:$PATH' >> $GITHUB_ENV
-        gradle --version
-
     - name: Build debug APK
-      run: gradle assembleDebug --no-daemon
-      working-directory: ${{ github.workspace }}
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon
 
     - name: Upload APK as artifact
       uses: actions/upload-artifact@v4
