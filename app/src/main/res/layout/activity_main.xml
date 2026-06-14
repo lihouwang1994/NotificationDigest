@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通知简报"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本应用会读取手机通知，每日生成简报并推送。"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 权限状态 -->
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F5F5F5"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 开启通知监听 -->
+        <Button
+            android:id="@+id/btn_notification"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="开启通知监听权限"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 关闭电池优化 -->
+        <Button
+            android:id="@+id/btn_battery"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="关闭电池优化（保活）"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- OPPO 自启动设置 -->
+        <Button
+            android:id="@+id/btn_autostart"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="OPPO 自启动设置"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- API 配置 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="火山引擎 API 配置"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="API Key"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/et_api_key"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="请输入火山引擎 API Key"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="模型 ID"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/et_model_id"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="请输入模型 ID（如 ep-2024xxxxx）"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简报推送时间（HH:MM）"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/et_digest_time"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="20:00"
+            android:inputType="time"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btn_save_config"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="保存配置"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btn_generate_now"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="立即生成简报"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提示：OPPO 手机关闭电池优化后，还需在手机管家中允许本应用自启动。"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.notificationdigest">
+
+    <!-- 通知监听权限（系统授予，此处声明） -->
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+    <!-- 前台服务（保活 + Android 12+ 必需） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- 电池优化白名单（OPPO 保活关键） -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- 网络（调用 AI 接口） -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 开机自启（OPPO 需引导用户手动开启） -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".DigestApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="通知简报"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NotificationDigest"
+        android:usesCleartextTraffic="true">
+
+        <!-- 主界面：引导开启通知监听权限 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 通知监听核心服务 -->
+        <service
+            android:name=".NotificationListener"
+            android:foregroundServiceType="specialUse"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_TYPES"
+                android:value="specialUse" />
+        </service>
+
+        <!-- 定时汇总 Worker（WorkManager） -->
+        <service
+            android:name=".DigestWorker"
+            android:exported="false" />
+
+        <!-- 开机自启 Receiver -->
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 保活：监听应用被杀后重启 -->
+        <receiver
+            android:name=".RestartReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_RESTARTED" />
+                <action android:name="android.intent.action.PACKAGE_DATA_CLEARED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
